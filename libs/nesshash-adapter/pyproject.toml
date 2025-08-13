@@ -1,0 +1,7 @@
+
+[project]
+name = "nesshash-adapter"
+version = "0.1.0"
+description = "Pluggable hashing adapter for Project Aquea (uses NessHash if available)."
+requires-python = ">=3.10"
+dependencies = []

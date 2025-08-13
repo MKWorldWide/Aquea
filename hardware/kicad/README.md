@@ -1,0 +1,1 @@
+# KiCad designs will live here (schematics + PCB).
