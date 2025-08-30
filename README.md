@@ -1,5 +1,11 @@
 
-# 🌊 Project Aquea — Open Water Reclamation System
+# 🌊 Aquea - Open Water Reclamation System
+
+[![CI](https://github.com/MKWorldWide/Aquea/actions/workflows/ci.yml/badge.svg)](https://github.com/MKWorldWide/Aquea/actions)
+[![Documentation](https://github.com/MKWorldWide/Aquea/actions/workflows/pages.yml/badge.svg)](https://github.com/MKWorldWide/Aquea/actions)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/MKWorldWide/Aquea/blob/main/License.md)
+[![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
+[![Docker](https://img.shields.io/badge/Docker-✓-blue.svg)](https://www.docker.com/)
 
 ### ⚡ AI-Powered • 🔓 Open Source • 🌍 Global Impact
 
@@ -7,47 +13,110 @@
 
 🔌 **Firmware** → 🌐 **Edge** → ☁️ **Cloud** → 🤖 **AI/ML**
 
-✨ **Key Features**
+## ✨ Features
 
-- **🔐 Integrity-first**: Every record is cryptographically chained via our pluggable hashing adapter (🔗 NessHash-ready)
+- **🔐 Integrity-first**: Every record is cryptographically chained via our pluggable hashing adapter (NessHash-ready)
 - **📦 Monorepo simplicity**: All services, infrastructure, and hardware in one place
 - **⚡ Fast start**: 🐳 Docker-first workflows with included simulator
 - **🔧 Hackable**: Clear interfaces, type-safe models, and readable code
 - **🌱 Sustainable**: Designed for low-power operation with solar capabilities
 - **🔍 Verifiable**: End-to-end data integrity with blockchain-inspired ledger
 
----
+## 🚀 Quick Start
 
-## 🚀 Quick Start (2 minutes)
+### Prerequisites
+
+- Docker and Docker Compose
+- Python 3.11+
+- Git
+
+### Local Development
 
 ```bash
-# 1) Environment
+# 1) Clone the repository
+git clone https://github.com/MKWorldWide/Aquea.git
+cd Aquea
+
+# 2) Set up environment
 cp .env.example .env
 
-# 2) Bring up the stack (Postgres, Mosquitto, services)
+# 3) Start the stack
 docker compose up --build
 
-# 3) In another terminal, start the simulator
+# 4) In another terminal, start the simulator
 docker compose run --rm simulator python publisher.py
 
-# 4) Health check
+# 5) Verify the system is running
 curl http://localhost:8080/health
 ```
 
----
+## 📚 Documentation
+
+For detailed documentation, please visit our [documentation site](https://mkworldwide.github.io/aquea/).
+
+- [Getting Started](https://mkworldwide.github.io/aquea/getting-started/installation/)
+- [Architecture](https://mkworldwide.github.io/aquea/architecture/overview/)
+- [API Reference](https://mkworldwide.github.io/aquea/api/gateway/)
+- [Development Guide](https://mkworldwide.github.io/aquea/development/setup/)
 
 ## 🏗️ System Architecture
 
+```mermaid
+graph TD
+    A[ESP32 Sensors] -->|MQTT| B[Mosquitto]
+    B -->|Store| C[(PostgreSQL)]
+    D[Gateway] -->|gRPC/HTTP| E[ML Service]
+    D -->|REST| F[Device Hub]
+    B -->|Publish| D
+    D -->|Subscribe| B
+    F -->|Control| A
+    G[Web Interface] -->|HTTP| D
 ```
-┌────────────────┐      MQTT       ┌──────────────┐      SQL       ┌─────────────┐
-│  ESP32 sensors │ ─────────────▶ │  Mosquitto   │ ─────────────▶ │  Postgres   │
-└────────────────┘                └──────────────┘                └─────────────┘
-           ╲                             ╲
-            ╲ REST                        ╲ gRPC/HTTP
-             ╲                             ╲
-           ┌──────────────┐            ┌──────────────┐
-           │   Gateway    │ ◀────────▶ │  ML Service  │
-           │  (FastAPI)   │            │  (FastAPI)   │
+
+## 🛠️ Development
+
+### Prerequisites
+
+- Python 3.11+
+- Poetry (recommended)
+- Node.js 18+ (for frontend development)
+
+### Setup
+
+```bash
+# Install Python dependencies
+poetry install
+
+# Install pre-commit hooks
+pre-commit install
+
+# Run tests
+pytest
+
+# Start development servers
+make dev
+```
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](https://mkworldwide.github.io/aquea/contributing/guidelines/) for details.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](License.md) file for details.
+
+## 🙏 Acknowledgments
+
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [Pydantic](https://pydantic-docs.helpmanual.io/)
+- [MkDocs Material](https://squidfunk.github.io/mkdocs-material/)
+- [Docker](https://www.docker.com/)
+
+---
+
+<p align="center">
+  Made with ❤️ by <a href="https://mkworldwide.io">MK Worldwide</a>
+</p>
            └──────────────┘            └──────────────┘
                   ╲
                    ╲ Hash Chain (NessHash adapter)
